@@ -3,6 +3,7 @@ FROM alpine:latest
 # Add env
 ENV LANG C.UTF-8
 
+# Platform from Buildx
 ARG TARGETPLATFORM
 RUN DOCKER_ARCH=$(case ${TARGETPLATFORM:-linux/amd64} in \
     "linux/amd64")   echo "x86_64"  ;; \
