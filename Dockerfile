@@ -13,6 +13,7 @@ RUN DOCKER_ARCH=$(case ${TARGETPLATFORM:-linux/amd64} in \
   && echo "DOCKER_ARCH=$DOCKER_ARCH" \
   && mkdir -p /opt/airconnect \
   && set -x; wget -q "https://raw.githubusercontent.com/philippe44/AirConnect/master/bin/aircast-${DOCKER_ARCH}" -qO "/opt/airconnect/aircast" \
+  && chmod +x /opt/airconnect/aircast
   && ls -al /opt/airconnect
 
 # Start DHCP server
