@@ -3,6 +3,9 @@ FROM alpine:latest
 # Add env
 ENV LANG C.UTF-8
 
+# The GNU C Library compatibility layer for musl
+RUN apk --no-cache add gcompat
+
 # Platform from Buildx
 ARG TARGETPLATFORM
 RUN DOCKER_ARCH=$(case ${TARGETPLATFORM:-linux/amd64} in \
@@ -12,9 +15,9 @@ RUN DOCKER_ARCH=$(case ${TARGETPLATFORM:-linux/amd64} in \
     *)               echo ""        ;; esac) \
   && echo "DOCKER_ARCH=$DOCKER_ARCH" \
   && mkdir -p /opt/airconnect \
-  && set -x; wget -q "https://raw.githubusercontent.com/philippe44/AirConnect/master/bin/aircast-${DOCKER_ARCH}" -qO "/opt/airconnect/aircast-${DOCKER_ARCH}" \
-  && chmod +x /opt/airconnect/aircast-${DOCKER_ARCH} \
+  && set -x; wget -q "https://raw.githubusercontent.com/philippe44/AirConnect/master/bin/aircast-${DOCKER_ARCH}" -qO "/opt/airconnect/aircast" \
+  && chmod +x /opt/airconnect/aircast \
   && ls -al /opt/airconnect
 
 # Start DHCP server
-CMD ["/opt/airconnect/aircast-${DOCKER_ARCH}"]
+CMD ["/opt/airconnect/aircast"]
