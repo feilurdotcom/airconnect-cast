@@ -12,9 +12,9 @@ RUN DOCKER_ARCH=$(case ${TARGETPLATFORM:-linux/amd64} in \
     *)               echo ""        ;; esac) \
   && echo "DOCKER_ARCH=$DOCKER_ARCH" \
   && mkdir -p /opt/airconnect \
-  && set -x; wget -q "https://raw.githubusercontent.com/philippe44/AirConnect/master/bin/aircast-${DOCKER_ARCH}" -qO "/opt/airconnect/aircast" \
-  && chmod +x /opt/airconnect/aircast \
+  && set -x; wget -q "https://raw.githubusercontent.com/philippe44/AirConnect/master/bin/aircast-${DOCKER_ARCH}" -qO "/opt/airconnect/aircast-${DOCKER_ARCH}" \
+  && chmod +x /opt/airconnect/aircast-${DOCKER_ARCH} \
   && ls -al /opt/airconnect
 
 # Start DHCP server
-CMD ["/opt/airconnect/aircast"]
+CMD ["/opt/airconnect/aircast-${DOCKER_ARCH}"]
